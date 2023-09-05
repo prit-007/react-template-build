@@ -1,17 +1,20 @@
 // @flow
 import React, { useEffect, useState } from 'react'
-import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap'
+import { Link } from 'react-router-dom';
+import { Button, Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap'
+import { isMethodDeclaration } from 'typescript';
 function Employee() {
     const [data, setData] = useState([]);
     const api = "https://64f62b512b07270f705e3d40.mockapi.io/Prit-v-007/Employee";
     useEffect(() => {
-        fetch(api).then((res) => { return res.json() }).then((res) => { console.log(res); setData(res) });
+        fetch(api).then((res) => { return res.json() }).then((res) => { setData(res) });
     }, [])
 
     const formattedData = data.map((d) => {
-        <Row className='col-4'>
+        return (
+            <Col className='col-3' key={d.id}>
                 <div className="card">
-                    <img src={d.image1} className="card-img-top" alt="image 1" />
+                    <img src={d.fbAvatar} className="card-img-top" alt="image 1" />
                     <div className="card-body">
                         <h5 className="card-title">{d.firstName} {d.lastName}</h5>
                         <p className="card-text">{d.mobileNumber}</p>
@@ -22,11 +25,18 @@ function Employee() {
                         <li className="list-group-item">{d.id}</li>
                     </ul>
                     <div className="card-body">
-                        <a href="#" className="card-link">Card link</a>
-                        <a href="#" className="card-link">Another link</a>
+                        <Link to={"/details/" + d.id} className="mx-2  card-link">Details</Link>
+                        <Button color="danger" className="mx-2 btn-outline-danger" onClick={() => {
+                            fetch(api + "/" + d.id, { method: "Delte" }).then((res) => {
+                                setData(data.filter((temp) => {
+                                    return temp.id !== d.id;
+                                }))
+                            })
+                        }}>Delete</Button>
                     </div>
                 </div>
-        </Row>
+            </Col>
+        );
     }
     )
     return (
@@ -42,11 +52,10 @@ function Employee() {
                         </CardHeader>
                         <CardBody>
                             <div className="container">
-                                <div className='row'>
-                                    {console.log(formattedData)}
+                                <Row>
                                     {formattedData}
-                                </div>
-                            </div>  
+                                </Row>
+                            </div>
                         </CardBody>
                     </Card>
                 </Col>

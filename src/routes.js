@@ -24,13 +24,22 @@ import Employee from "views/Employee";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import EmplyeeDetails from "views/EmplyeeDetails";
 
 var routes = [
+  {
+    path: "/Employee/details/:id",
+    name: "EmployeeDetail",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-user-run",
+    component: <EmplyeeDetails />,
+    layout: "/admin",
+  },
   {
     path: "/Employee",
     name: "Employee",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
+    icon: "tim-icons icon-user-run",
     component: <Employee />,
     layout: "/admin",
   },
@@ -89,14 +98,6 @@ var routes = [
     icon: "tim-icons icon-align-center",
     component: <Typography />,
     layout: "/admin",
-  },
-  {
-    path: "/rtl-support",
-    name: "RTL Support",
-    rtlName: "ار تي ال",
-    icon: "tim-icons icon-world",
-    component: <Rtl />,
-    layout: "/rtl",
   },
 ];
 export default routes;

@@ -26,7 +26,6 @@ function Typography() {
     <>
       <div className="content">
         <Row>
-          <Employee />
           <Col md="12">
             <Card>
               <CardHeader className="mb-5">
